@@ -205,7 +205,7 @@ class Mainwindow(qtw.QMainWindow):
             print("index is : {}".format(index))
             print("sequence_object is : {}".format(sequence_object))
             print("Folder is : {}".format(sequence_object["sequence"][0]))
-         
+
             self.ui.tableWidget_resultaat.setItem(index, 0, qtw.QTableWidgetItem(sequence_object["sequence"][0]))
             self.ui.tableWidget_resultaat.setItem(index, 1, qtw.QTableWidgetItem(sequence_object["sequence"][1]))
             self.ui.tableWidget_resultaat.setItem(index, 2, qtw.QTableWidgetItem(sequence_object["sequence"][2]))
