@@ -212,7 +212,7 @@ class Mainwindow(qtw.QMainWindow):
             row=row+1
 
 
-
+# this is the white UI version
 if __name__ == "__main__":
     app = qtw.QApplication(sys.argv)
     w = Mainwindow()
