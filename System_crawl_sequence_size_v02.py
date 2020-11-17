@@ -1,6 +1,7 @@
 import os
 import re
 import pyseq
+import time
 import sys
 import pprint
 from PIL import Image
@@ -9,7 +10,6 @@ import fsutil
 
 #file = os.stat("Schilpad_retopo_V01_bak5.hip")
 #print('Size of file is', file.st_size, 'bytes')
-f = open("my_sequences2.txt", "w")
 
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
@@ -78,6 +78,7 @@ def get_list_file_size(folder, items):
     for i, sequence in enumerate(folder):
         #print("naam folder is {}".format(len(folder[i])))
 
+        #time.sleep(0.01)
         if len(folder[i]) == 1:
             pass
         else:
@@ -106,11 +107,28 @@ def get_list_file_size(folder, items):
                 #mijn sys.getsizeof approach
                 """ image_file = Image.open(full_path)
                 print("File Size In Bytes:- "+str(len(image_file.fp.read()))) """
+                def DC_get_file_size(path):
+                    """
+                    Get the directory size in bytes.
+                    """
+                    #assert_file(path)
+                    # size = os.stat(path).st_size
+                    size = os.path.getsize(path)
+                    return size
 
+
+                def DC_get_file_size_formatted(path):
+                    """
+                    Get the directory size formatted using the right unit suffix.
+                    """
+                    size = get_file_size(path)
+                    size_formatted = convert_size_bytes_to_string(size)
+                    return size_formatted
 
                 maat = fsutil.get_file_size(full_path)
+                #time.sleep(0.01)
                 #print("get file size is: " + str(maat)) 
-                size_str = fsutil.get_file_size_formatted(full_path)
+                #maat_str = fsutil.get_file_size_formatted(full_path)
                 #print("get file size formatted is: " + str(size_str))
                 filesize_list.append(maat)
 
@@ -127,7 +145,7 @@ def get_list_file_size(folder, items):
             my_sequence_dict["sequence"][1] = str(folder[i])
             my_sequence_dict["sequence"][2] = humanbytes(filesize_totaal)
             #print(my_sequence_dict)
-            f.write(str(my_sequence_dict) + "\n")
+
     return my_sequence_dict
 
 
@@ -152,10 +170,7 @@ def del_none_keys(dict):
     #print("gevonden" + str(type(gevonden)))
     #print(resultaat)
 
-
-
     #write_to_txt(resultaat)
-
 
 class Mainwindow(qtw.QMainWindow):
     def __init__(self,*arg,**kwargs):
@@ -163,9 +178,11 @@ class Mainwindow(qtw.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        title = "System crawl sequence size"
+        self.setWindowTitle(title) 
         self.ui.pushButton_start.clicked.connect(self.zoeken)
-        self.ui.tableWidget_resultaat.setColumnWidth(0,350)
-        self.ui.tableWidget_resultaat.setColumnWidth(1,550)
+        self.ui.tableWidget_resultaat.setColumnWidth(0,500)
+        self.ui.tableWidget_resultaat.setColumnWidth(1,450)
 
         self.show()
 
@@ -200,7 +217,7 @@ class Mainwindow(qtw.QMainWindow):
                 #global_resultaat.pop(rij_index)
             else:
                 clean_global_resultaat.append(global_resultaat[rij_index])
-                
+
 
                 #del(global_resultaat[rij_index])
         print("lengte list is nu B: {}".format(len(global_resultaat)))
@@ -245,4 +262,3 @@ if __name__ == "__main__":
     mw.show()
     sys.exit(app.exec_())
 
-f.close()

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1513</width>
+    <width>1064</width>
     <height>1012</height>
    </rect>
   </property>
@@ -54,7 +54,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../DC_VideoTools_v01/DC_VideoTools_V01/img/redrum_beeldmerk_280-280.png</pixmap>
+       <pixmap>red_logo.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -76,15 +76,62 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="topMargin">
-       <number>30</number>
+       <number>15</number>
       </property>
       <property name="rightMargin">
        <number>100</number>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButton_start">
+       <widget class="QLabel" name="label_3">
+        <property name="minimumSize">
+         <size>
+          <width>420</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
         <property name="text">
-         <string>Stel crawl folder in:</string>
+         <string>Selecteer een crawl folder</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_start">
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>search_icon.svg</normaloff>search_icon.svg</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -145,7 +192,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1513</width>
+     <width>1064</width>
      <height>21</height>
     </rect>
    </property>

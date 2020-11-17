@@ -1,31 +1,23 @@
 import os
 import re
 import pyseq
+import time
 import sys
 import pprint
 from PIL import Image
 from pathlib import Path
 import fsutil
-path = ("N:\\Redrum\\netflix\\")
-print(path)
+
 #file = os.stat("Schilpad_retopo_V01_bak5.hip")
 #print('Size of file is', file.st_size, 'bytes')
-f = open("my_sequences2.txt", "w")
 
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
-import qtmodern.styles
-import qtmodern.windows
 from interface import Ui_MainWindow
 
 
-my_root_set =  set()
 
-for root, dirs, files in os.walk(path):
-    for name in files:
-        my_root_set.add(root)
-        #print(root)
 
 #print("my root sets zijn : {}".format(my_root_set))
 
@@ -84,6 +76,7 @@ def get_list_file_size(folder, items):
     for i, sequence in enumerate(folder):
         #print("naam folder is {}".format(len(folder[i])))
 
+        #time.sleep(0.01)
         if len(folder[i]) == 1:
             pass
         else:
@@ -112,11 +105,28 @@ def get_list_file_size(folder, items):
                 #mijn sys.getsizeof approach
                 """ image_file = Image.open(full_path)
                 print("File Size In Bytes:- "+str(len(image_file.fp.read()))) """
+                def DC_get_file_size(path):
+                    """
+                    Get the directory size in bytes.
+                    """
+                    #assert_file(path)
+                    # size = os.stat(path).st_size
+                    size = os.path.getsize(path)
+                    return size
 
+
+                def DC_get_file_size_formatted(path):
+                    """
+                    Get the directory size formatted using the right unit suffix.
+                    """
+                    size = get_file_size(path)
+                    size_formatted = convert_size_bytes_to_string(size)
+                    return size_formatted
 
                 maat = fsutil.get_file_size(full_path)
+                #time.sleep(0.01)
                 #print("get file size is: " + str(maat)) 
-                size_str = fsutil.get_file_size_formatted(full_path)
+                #maat_str = fsutil.get_file_size_formatted(full_path)
                 #print("get file size formatted is: " + str(size_str))
                 filesize_list.append(maat)
 
@@ -133,8 +143,8 @@ def get_list_file_size(folder, items):
             my_sequence_dict["sequence"][1] = str(folder[i])
             my_sequence_dict["sequence"][2] = humanbytes(filesize_totaal)
             #print(my_sequence_dict)
-            f.write(str(my_sequence_dict) + "\n")
-            return my_sequence_dict
+
+    return my_sequence_dict
 
 
 def write_to_txt(resultaat):
@@ -148,25 +158,17 @@ def del_none_keys(dict):
         if dict[elem] == None:
            del dict[elem]
 
-for its, items in enumerate(my_root_set):
-    gevonden = detect_sequences(items)
+#for its, items in enumerate(my_root_set):
+    #gevonden = detect_sequences(items)
     #print("gevonden: {}".format(gevonden))
     #print("its: {}".format(its))
     #print("items: {}".format(items))
     #print("Formaat van dict is: {}".format(len(gevonden)))
-    resultaat = get_list_file_size(gevonden, items)
+    #resultaat = get_list_file_size(gevonden, items)
     #print("gevonden" + str(type(gevonden)))
-    print(resultaat)
-
-
-
+    #print(resultaat)
 
     #write_to_txt(resultaat)
-
-f.close()
-
-
-
 
 class Mainwindow(qtw.QMainWindow):
     def __init__(self,*arg,**kwargs):
@@ -174,15 +176,75 @@ class Mainwindow(qtw.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        title = "System crawl sequence size"
+        self.setWindowTitle(title) 
         self.ui.pushButton_start.clicked.connect(self.zoeken)
+        self.ui.tableWidget_resultaat.setColumnWidth(0,500)
+        self.ui.tableWidget_resultaat.setColumnWidth(1,450)
+
+        self.show()
 
     def zoeken(self):
         file = str(qtw.QFileDialog.getExistingDirectory(self, "Selecteer een Directory"))
         self.ui.label_zoekfolder.setText(file)
-        
+
+        path = (file)
+        print(path)
+
+        mijn_table_data = {}
+        my_root_set =  set()
+
+        for root, dirs, files in os.walk(path):
+            for name in files:
+                my_root_set.add(root)
+                #print(root)
+
+        global_resultaat = []
+        print("lengte list is A: {}".format(len(global_resultaat)))
         for its, items in enumerate(my_root_set):
             gevonden = detect_sequences(items)
             print(gevonden)
+            resultaat = get_list_file_size(gevonden, items)
+            global_resultaat.append(resultaat)
+
+        clean_global_resultaat = []
+        for rij_index, rij in enumerate(global_resultaat):
+            if rij["sequence"][1] == '':
+                print("rij_index is: {}".format(rij_index))
+                print("rij is: {}".format(rij))
+                #global_resultaat.pop(rij_index)
+            else:
+                clean_global_resultaat.append(global_resultaat[rij_index])
+
+
+                #del(global_resultaat[rij_index])
+        print("lengte list is nu B: {}".format(len(global_resultaat)))
+        print("lengte clean list is nu: {}".format(len(clean_global_resultaat)))
+
+        aantallen = len(clean_global_resultaat)
+        print("aantallen is: {}".format(aantallen))
+        print("global resultaat is  : {}".format(global_resultaat))
+
+
+        row = 0
+        self.ui.tableWidget_resultaat.setRowCount(aantallen)
+        for index, sequence_object in enumerate(clean_global_resultaat):
+
+            print("index is : {}".format(index))
+            print("sequence_object is : {}".format(sequence_object))
+            print("Folder is : {}".format(sequence_object["sequence"][0]))
+
+            self.ui.tableWidget_resultaat.setItem(index, 0, qtw.QTableWidgetItem(sequence_object["sequence"][0]))
+            self.ui.tableWidget_resultaat.setItem(index, 1, qtw.QTableWidgetItem(sequence_object["sequence"][1]))
+            self.ui.tableWidget_resultaat.setItem(index, 2, qtw.QTableWidgetItem(sequence_object["sequence"][2]))
+            row=row+1
+
+
+
+
+
+
+
 
 
 
@@ -192,9 +254,6 @@ class Mainwindow(qtw.QMainWindow):
 if __name__ == "__main__":
     app = qtw.QApplication(sys.argv)
     w = Mainwindow()
-
-    qtmodern.styles.dark(app)
-    mw = qtmodern.windows.ModernWindow(w)
-    mw.show()
+    w.show()
     sys.exit(app.exec_())
 
