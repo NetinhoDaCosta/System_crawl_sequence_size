@@ -16,9 +16,6 @@ from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
 from interface import Ui_MainWindow
 
-
-
-
 #print("my root sets zijn : {}".format(my_root_set))
 
 def format_bytes(size):
@@ -85,17 +82,6 @@ def get_list_file_size(folder, items):
 
             filesize_list = []
             for file in folder[i]:
-                #print(file)
-                #print(path + file)
-                full_path = str(items) + "\\" + str(file)
-                #print(str(path))
-                #print(str(file))
-                #print(full_path)
-                #file_size=os.path.getsize(str(full_path))
-                #file_size = os.stat(full_path)
-                #print('Size of file is', file_size.st_size, 'bytes')
-                #print("the size of " + full_path)
-
 
                 # mijn os.stat approach
                 #current_file = os.stat(full_path)
@@ -124,10 +110,7 @@ def get_list_file_size(folder, items):
                     return size_formatted
 
                 maat = fsutil.get_file_size(full_path)
-                #time.sleep(0.01)
-                #print("get file size is: " + str(maat)) 
-                #maat_str = fsutil.get_file_size_formatted(full_path)
-                #print("get file size formatted is: " + str(size_str))
+
                 filesize_list.append(maat)
 
 
@@ -158,17 +141,6 @@ def del_none_keys(dict):
         if dict[elem] == None:
            del dict[elem]
 
-#for its, items in enumerate(my_root_set):
-    #gevonden = detect_sequences(items)
-    #print("gevonden: {}".format(gevonden))
-    #print("its: {}".format(its))
-    #print("items: {}".format(items))
-    #print("Formaat van dict is: {}".format(len(gevonden)))
-    #resultaat = get_list_file_size(gevonden, items)
-    #print("gevonden" + str(type(gevonden)))
-    #print(resultaat)
-
-    #write_to_txt(resultaat)
 
 class Mainwindow(qtw.QMainWindow):
     def __init__(self,*arg,**kwargs):
@@ -238,16 +210,6 @@ class Mainwindow(qtw.QMainWindow):
             self.ui.tableWidget_resultaat.setItem(index, 1, qtw.QTableWidgetItem(sequence_object["sequence"][1]))
             self.ui.tableWidget_resultaat.setItem(index, 2, qtw.QTableWidgetItem(sequence_object["sequence"][2]))
             row=row+1
-
-
-
-
-
-
-
-
-
-
 
 
 
