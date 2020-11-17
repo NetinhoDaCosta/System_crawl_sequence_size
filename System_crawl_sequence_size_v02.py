@@ -185,22 +185,35 @@ class Mainwindow(qtw.QMainWindow):
                 #print(root)
 
         global_resultaat = []
+        print("lengte list is A: {}".format(len(global_resultaat)))
         for its, items in enumerate(my_root_set):
             gevonden = detect_sequences(items)
             print(gevonden)
             resultaat = get_list_file_size(gevonden, items)
             global_resultaat.append(resultaat)
 
+        clean_global_resultaat = []
+        for rij_index, rij in enumerate(global_resultaat):
+            if rij["sequence"][1] == '':
+                print("rij_index is: {}".format(rij_index))
+                print("rij is: {}".format(rij))
+                #global_resultaat.pop(rij_index)
+            else:
+                clean_global_resultaat.append(global_resultaat[rij_index])
+                
 
+                #del(global_resultaat[rij_index])
+        print("lengte list is nu B: {}".format(len(global_resultaat)))
+        print("lengte clean list is nu: {}".format(len(clean_global_resultaat)))
 
-        aantallen = len(global_resultaat)
+        aantallen = len(clean_global_resultaat)
         print("aantallen is: {}".format(aantallen))
-        print("global resultaat is 1 1 : {}".format(global_resultaat))
+        print("global resultaat is  : {}".format(global_resultaat))
 
 
         row = 0
         self.ui.tableWidget_resultaat.setRowCount(aantallen)
-        for index, sequence_object in enumerate(global_resultaat):
+        for index, sequence_object in enumerate(clean_global_resultaat):
 
             print("index is : {}".format(index))
             print("sequence_object is : {}".format(sequence_object))
