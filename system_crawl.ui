@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1064</width>
-    <height>1012</height>
+    <width>1312</width>
+    <height>1000</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -161,7 +161,75 @@
         </property>
        </widget>
       </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>5</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Filter op:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="topMargin">
+           <number>20</number>
+          </property>
+          <item>
+           <widget class="QRadioButton" name="radioButton_images">
+            <property name="text">
+             <string>Afbeeldingen</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_videos">
+            <property name="text">
+             <string>Video's</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_anders">
+            <property name="text">
+             <string>Anders</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_to_xls">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Exporteer data als Excel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="value">
+       <number>24</number>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QTableWidget" name="tableWidget_resultaat">
@@ -180,7 +248,17 @@
       </column>
       <column>
        <property name="text">
+        <string>Aantal files</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Size</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Totaal in bytes</string>
        </property>
       </column>
      </widget>
@@ -192,7 +270,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1064</width>
+     <width>1312</width>
      <height>21</height>
     </rect>
    </property>

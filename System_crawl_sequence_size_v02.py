@@ -14,9 +14,16 @@ import fsutil
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
-import qtmodern.styles
-import qtmodern.windows
 from interface import Ui_MainWindow
+
+import qtmodern.windows
+import qtmodern.styles
+
+root = Path()
+if getattr(sys, 'frozen', False):
+    root = Path(sys._MEIPASS)
+    qtmodern.styles._STYLESHEET = root / 'qtmodern/style.qss'
+    qtmodern.windows._FL_STYLESHEET = root / 'qtmodern/frameless.qss'
 
 
 
@@ -73,7 +80,7 @@ def detect_sequences(pad): # geeft een pad aan en ontvang alle sequences uit dat
 
 def get_list_file_size(folder, items):
     #my_sequence_dict = {"eq": {"foldernaam": "", "sequencenaam" : "","sequencesize":""}}
-    my_sequence_dict = {"sequence":["","",""]}
+    my_sequence_dict = {"sequence":["","","",""]}
 
     for i, sequence in enumerate(folder):
         #print("naam folder is {}".format(len(folder[i])))
@@ -87,26 +94,10 @@ def get_list_file_size(folder, items):
 
             filesize_list = []
             for file in folder[i]:
-                #print(file)
+
                 #print(path + file)
                 full_path = str(items) + "\\" + str(file)
-                #print(str(path))
-                #print(str(file))
-                #print(full_path)
-                #file_size=os.path.getsize(str(full_path))
-                #file_size = os.stat(full_path)
-                #print('Size of file is', file_size.st_size, 'bytes')
-                #print("the size of " + full_path)
 
-
-                # mijn os.stat approach
-                #current_file = os.stat(full_path)
-                #print('Size of file is', os.stat(path).st_size, 'bytes')
-                #filesize_list.append(os.stat(path).st_size)
-
-                #mijn sys.getsizeof approach
-                """ image_file = Image.open(full_path)
-                print("File Size In Bytes:- "+str(len(image_file.fp.read()))) """
                 def DC_get_file_size(path):
                     """
                     Get the directory size in bytes.
@@ -144,15 +135,13 @@ def get_list_file_size(folder, items):
             my_sequence_dict["sequence"][0] = str(items)
             my_sequence_dict["sequence"][1] = str(folder[i])
             my_sequence_dict["sequence"][2] = humanbytes(filesize_totaal)
+            my_sequence_dict["sequence"][3] = str(filesize_totaal)
             #print(my_sequence_dict)
 
     return my_sequence_dict
 
 
-def write_to_txt(resultaat):
-    f = open("my_sequences.txt", "w")
-    for key , values in resultaat.items():
-        pass
+
 
 
 def del_none_keys(dict):
@@ -160,17 +149,6 @@ def del_none_keys(dict):
         if dict[elem] == None:
            del dict[elem]
 
-#for its, items in enumerate(my_root_set):
-    #gevonden = detect_sequences(items)
-    #print("gevonden: {}".format(gevonden))
-    #print("its: {}".format(its))
-    #print("items: {}".format(items))
-    #print("Formaat van dict is: {}".format(len(gevonden)))
-    #resultaat = get_list_file_size(gevonden, items)
-    #print("gevonden" + str(type(gevonden)))
-    #print(resultaat)
-
-    #write_to_txt(resultaat)
 
 class Mainwindow(qtw.QMainWindow):
     def __init__(self,*arg,**kwargs):
@@ -181,8 +159,12 @@ class Mainwindow(qtw.QMainWindow):
         title = "System crawl sequence size"
         self.setWindowTitle(title) 
         self.ui.pushButton_start.clicked.connect(self.zoeken)
-        self.ui.tableWidget_resultaat.setColumnWidth(0,500)
-        self.ui.tableWidget_resultaat.setColumnWidth(1,450)
+        self.ui.tableWidget_resultaat.setColumnWidth(0,495)
+        self.ui.tableWidget_resultaat.setColumnWidth(1,497)
+        self.ui.tableWidget_resultaat.setItem(index, 4, qtw.QTableWidgetItem().qtw.)
+
+
+
 
         self.show()
 
@@ -238,18 +220,9 @@ class Mainwindow(qtw.QMainWindow):
 
             self.ui.tableWidget_resultaat.setItem(index, 0, qtw.QTableWidgetItem(sequence_object["sequence"][0]))
             self.ui.tableWidget_resultaat.setItem(index, 1, qtw.QTableWidgetItem(sequence_object["sequence"][1]))
-            self.ui.tableWidget_resultaat.setItem(index, 2, qtw.QTableWidgetItem(sequence_object["sequence"][2]))
+            self.ui.tableWidget_resultaat.setItem(index, 4, qtw.QTableWidgetItem     ("{}".format(sequence_object["sequence"][3])   )          )
+            self.ui.tableWidget_resultaat.setItem(index, 3, qtw.QTableWidgetItem(sequence_object["sequence"][2]))
             row=row+1
-
-
-
-
-
-
-
-
-
-
 
 
 
