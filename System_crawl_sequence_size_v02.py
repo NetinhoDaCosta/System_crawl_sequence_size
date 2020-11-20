@@ -161,9 +161,6 @@ class Mainwindow(qtw.QMainWindow):
         self.ui.pushButton_start.clicked.connect(self.zoeken)
         self.ui.tableWidget_resultaat.setColumnWidth(0,495)
         self.ui.tableWidget_resultaat.setColumnWidth(1,497)
-        self.ui.tableWidget_resultaat.setItem(index, 4, qtw.QTableWidgetItem().qtw.)
-
-
 
 
         self.show()
@@ -220,7 +217,7 @@ class Mainwindow(qtw.QMainWindow):
 
             self.ui.tableWidget_resultaat.setItem(index, 0, qtw.QTableWidgetItem(sequence_object["sequence"][0]))
             self.ui.tableWidget_resultaat.setItem(index, 1, qtw.QTableWidgetItem(sequence_object["sequence"][1]))
-            self.ui.tableWidget_resultaat.setItem(index, 4, qtw.QTableWidgetItem     ("{}".format(sequence_object["sequence"][3])   )          )
+            self.ui.tableWidget_resultaat.setItem(index, 4, qtw.QTableWidgetItem     ("{}".format(sequence_object["sequence"][3])))
             self.ui.tableWidget_resultaat.setItem(index, 3, qtw.QTableWidgetItem(sequence_object["sequence"][2]))
             row=row+1
 
