@@ -207,6 +207,9 @@ class Mainwindow(qtw.QMainWindow):
         print("global resultaat is  : {}".format(global_resultaat))
 
 
+
+
+
         row = 0
         self.ui.tableWidget_resultaat.setRowCount(aantallen)
         for index, sequence_object in enumerate(clean_global_resultaat):
@@ -214,10 +217,16 @@ class Mainwindow(qtw.QMainWindow):
             print("index is : {}".format(index))
             print("sequence_object is : {}".format(sequence_object))
             print("Folder is : {}".format(sequence_object["sequence"][0]))
+            
+            #bytes_item.setData(qtc.QTableWidgetItem())
+            #bytes_item = qtw.QTableWidgetItem()
+            #bytes_item.setData(Qt.DisplayRole,sequence_object["sequence"][3])
+            #bytes_item.setData(qtc.DisplayRole  , "iets")
+            
 
             self.ui.tableWidget_resultaat.setItem(index, 0, qtw.QTableWidgetItem(sequence_object["sequence"][0]))
             self.ui.tableWidget_resultaat.setItem(index, 1, qtw.QTableWidgetItem(sequence_object["sequence"][1]))
-            self.ui.tableWidget_resultaat.setItem(index, 4, qtw.QTableWidgetItem     ("{}".format(sequence_object["sequence"][3])))
+            self.ui.tableWidget_resultaat.setItem(index, 4, qtw.QTableWidgetItem(sequence_object["sequence"][3]))
             self.ui.tableWidget_resultaat.setItem(index, 3, qtw.QTableWidgetItem(sequence_object["sequence"][2]))
             row=row+1
 
