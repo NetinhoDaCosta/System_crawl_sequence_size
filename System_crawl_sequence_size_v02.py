@@ -229,6 +229,8 @@ class Mainwindow(qtw.QMainWindow):
             self.ui.tableWidget_resultaat.setItem(index, 4, qtw.QTableWidgetItem(sequence_object["sequence"][3]))
             self.ui.tableWidget_resultaat.setItem(index, 3, qtw.QTableWidgetItem(sequence_object["sequence"][2]))
             row=row+1
+            
+            print(dir(qtw.QTableWidgetItem))
 
 
 
