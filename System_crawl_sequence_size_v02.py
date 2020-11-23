@@ -218,6 +218,7 @@ class Mainwindow(qtw.QMainWindow):
             print("sequence_object is : {}".format(sequence_object))
             print("Folder is : {}".format(sequence_object["sequence"][0]))
 
+            # next add integers as colons insetad of strings
 
             self.ui.tableWidget_resultaat.setItem(index, 0, qtw.QTableWidgetItem(sequence_object["sequence"][0]))
             self.ui.tableWidget_resultaat.setItem(index, 1, qtw.QTableWidgetItem(sequence_object["sequence"][1]))
