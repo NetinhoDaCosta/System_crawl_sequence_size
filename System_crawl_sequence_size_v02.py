@@ -80,7 +80,7 @@ def detect_sequences(pad): # geeft een pad aan en ontvang alle sequences uit dat
 
 def get_list_file_size(folder, items):
     #my_sequence_dict = {"eq": {"foldernaam": "", "sequencenaam" : "","sequencesize":""}}
-    my_sequence_dict = {"sequence":["","","",""]}
+    my_sequence_dict = {"sequence":["","","","",""]}
 
     for i, sequence in enumerate(folder):
         #print("naam folder is {}".format(len(folder[i])))
@@ -136,6 +136,7 @@ def get_list_file_size(folder, items):
             my_sequence_dict["sequence"][1] = str(folder[i])
             my_sequence_dict["sequence"][2] = humanbytes(filesize_totaal)
             my_sequence_dict["sequence"][3] = str(filesize_totaal)
+            my_sequence_dict["sequence"][4] = str(len(filesize_list))
             #print(my_sequence_dict)
 
     return my_sequence_dict
@@ -191,27 +192,21 @@ class Mainwindow(qtw.QMainWindow):
             global_resultaat.append(resultaat)
             aantal_gevonden_items.append(len(gevonden))
 
+        clean_aantal_gevonden_items = []
         clean_global_resultaat = []
         for rij_index, rij in enumerate(global_resultaat):
             if rij["sequence"][1] == '':
                 print("rij_index is: {}".format(rij_index))
                 print("rij is: {}".format(rij))
-                
-                #global_resultaat.pop(rij_index)
-            else:
-                clean_global_resultaat.append(global_resultaat[rij_index])
-                
 
-        clean_aantal_gevonden_items = []
-        for rij_index_agi, rij_agi in enumerate(clean_aantal_gevonden_items):
-            if rij_agi["sequence"][1] == '':
-                print("aantal_gevonden_items_index is: {}".format(rij_index_agi))
-                print("aantal_gevonden_items _rij is: {}".format(rij_agi))
-                
                 #global_resultaat.pop(rij_index)
             else:
-                clean_global_resultaat.append(clean_aantal_gevonden_items[rij_index_agi])
-        
+                
+                clean_global_resultaat.append(global_resultaat[rij_index])
+                clean_aantal_gevonden_items.append(aantal_gevonden_items[rij_index])
+
+
+        print("clean global_resultaat  *********************************   is {}".format(global_resultaat))
 
                 #del(global_resultaat[rij_index])
         print("lengte list is nu B: {}".format(len(global_resultaat)))
@@ -240,7 +235,7 @@ class Mainwindow(qtw.QMainWindow):
             self.ui.tableWidget_resultaat.setItem(index, 1, qtw.QTableWidgetItem(sequence_object["sequence"][1]))
             self.ui.tableWidget_resultaat.setItem(index, 3, qtw.QTableWidgetItem(sequence_object["sequence"][2]))
             self.ui.tableWidget_resultaat.setItem(index, 4, qtw.QTableWidgetItem(sequence_object["sequence"][3]))
-            self.ui.tableWidget_resultaat.setItem(index, 2, qtw.QTableWidgetItem(str(len(gevonden))))
+            self.ui.tableWidget_resultaat.setItem(index, 2, qtw.QTableWidgetItem(sequence_object["sequence"][4]))
             row=row+1
 
             #print(help(self.ui.tableWidget_resultaat))
