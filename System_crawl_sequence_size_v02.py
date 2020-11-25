@@ -123,7 +123,7 @@ def get_list_file_size(folder, items):
                 #print("get file size formatted is: " + str(size_str))
                 filesize_list.append(maat)
 
-
+            print("********************filesizelist is {}".format(len(filesize_list)))
 
             filesize_totaal = sum(filesize_list)
             #print(len(filesize_list))
@@ -180,23 +180,38 @@ class Mainwindow(qtw.QMainWindow):
                 my_root_set.add(root)
                 #print(root)
 
+
+        aantal_gevonden_items=[]
         global_resultaat = []
         print("lengte list is A: {}".format(len(global_resultaat)))
         for its, items in enumerate(my_root_set):
             gevonden = detect_sequences(items)
-            print(gevonden)
+            print("===================   gevonden items zijn, {}".format(len(items)))
             resultaat = get_list_file_size(gevonden, items)
             global_resultaat.append(resultaat)
+            aantal_gevonden_items.append(len(gevonden))
 
         clean_global_resultaat = []
         for rij_index, rij in enumerate(global_resultaat):
             if rij["sequence"][1] == '':
                 print("rij_index is: {}".format(rij_index))
                 print("rij is: {}".format(rij))
+                
                 #global_resultaat.pop(rij_index)
             else:
                 clean_global_resultaat.append(global_resultaat[rij_index])
+                
 
+        clean_aantal_gevonden_items = []
+        for rij_index_agi, rij_agi in enumerate(clean_aantal_gevonden_items):
+            if rij_agi["sequence"][1] == '':
+                print("aantal_gevonden_items_index is: {}".format(rij_index_agi))
+                print("aantal_gevonden_items _rij is: {}".format(rij_agi))
+                
+                #global_resultaat.pop(rij_index)
+            else:
+                clean_global_resultaat.append(clean_aantal_gevonden_items[rij_index_agi])
+        
 
                 #del(global_resultaat[rij_index])
         print("lengte list is nu B: {}".format(len(global_resultaat)))
@@ -217,13 +232,15 @@ class Mainwindow(qtw.QMainWindow):
             print("index is : {}".format(index))
             print("sequence_object is : {}".format(sequence_object))
             print("Folder is : {}".format(sequence_object["sequence"][0]))
+            
 
             # next add integers as colons insetad of strings
 
             self.ui.tableWidget_resultaat.setItem(index, 0, qtw.QTableWidgetItem(sequence_object["sequence"][0]))
             self.ui.tableWidget_resultaat.setItem(index, 1, qtw.QTableWidgetItem(sequence_object["sequence"][1]))
-            self.ui.tableWidget_resultaat.setItem(index, 4, qtw.QTableWidgetItem(sequence_object["sequence"][3]))
             self.ui.tableWidget_resultaat.setItem(index, 3, qtw.QTableWidgetItem(sequence_object["sequence"][2]))
+            self.ui.tableWidget_resultaat.setItem(index, 4, qtw.QTableWidgetItem(sequence_object["sequence"][3]))
+            self.ui.tableWidget_resultaat.setItem(index, 2, qtw.QTableWidgetItem(str(len(gevonden))))
             row=row+1
 
             #print(help(self.ui.tableWidget_resultaat))
