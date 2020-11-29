@@ -216,16 +216,13 @@ class Mainwindow(qtw.QMainWindow):
         print("aantallen is: {}".format(aantallen))
         print("global resultaat is  : {}".format(global_resultaat))
 
-
-
-
-
+        # next todo is filtering
         row = 0
         self.ui.tableWidget_resultaat.setRowCount(aantallen)
         for index, sequence_object in enumerate(clean_global_resultaat):
-
-            print("index is : {}".format(index))
-            print("sequence_object is : {}".format(sequence_object))
+ 
+            print("index is : {}".format(index)) 
+            print("sequence_object is : {}".format(sequence_object)) 
             print("Folder is : {}".format(sequence_object["sequence"][0]))
             
 
